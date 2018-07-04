@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Sistema com BootsFaces</ui:define>
+        <ui:define name="conteudo">
+
+            <b:jumbotron style="background-color: lightsteelblue; border: 1px solid black ; padding-top: 10px; padding-bottom: 10px">
+                <h2>Meus Albuns e Bandas Favoritas</h2>
+
+
+            </b:jumbotron>
+            <b:panelGrid colSpans="6,6" size="sm">
+                <b:panel title="Bandas" look="danger">
+                    <p:dataTable value="#{controleBanda.dao.listaObjetos}"
+                                 var="obj" reflow="true" id="listagem">                     
+
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{obj.nome}"/>
+                        </p:column>
+                        <p:column headerText="Genero">
+                            <p:outputLabel value="#{obj.genero}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </b:panel>
+                <b:panel title="Albuns"  look="danger">
+                    <p:dataTable value="#{controleAlbum.dao.listaObjetos}"
+                                 var="obj2" reflow="true" id="listagem2">                     
+
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{obj2.titulo}"/>
+                        </p:column>
+                        <p:column headerText="Banda">
+                            <p:outputLabel value="#{obj2.banda.nome}"/>
+                        </p:column> 
+                        <p:column headerText="Lançamento">                           
+                            <p:calendar id="txtLancamento" value="#{obj2.lancamento}"
+                                        mask="true" pattern="dd/MM/yyyy" navigator="true">
+                                <f:converter converterId="converterCalendar"/>
+                            </p:calendar>
+                        </p:column>
+
+
+                    </p:dataTable>
+                </b:panel>
+
+            </b:panelGrid>
+        </ui:define>
+    </ui:composition>   
+</html>
+

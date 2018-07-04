@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="formEdicao">
+        <h:panelGroup rendered="#{controleAlbum.editando}">
+            <div class="ui-fluid">
+                <p:messages/>
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-20"
+                    layout="grid" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edição de Albuns"/>
+                    </f:facet>
+                    <p:outputLabel value="ID"/>
+                    <p:inputText value="#{controleAlbum.objeto.id}"
+                                 size="5" readonly="true"/>
+                    <p:outputLabel value="Título" for="txtTitulo"/>
+                    <p:inputText value="#{controleAlbum.objeto.titulo}"
+                                 id="txtTitulo" size="40" maxlength="40"                               
+                                 requiredMessage="O titulo deve ser informado"/>
+                      <p:outputLabel value="Lançamento" for="txtLancamento"/>
+                    <p:calendar id="txtLancamento" value="#{controleAlbum.objeto.lancamento}"
+                                mask="true" pattern="dd/MM/yyyy" navigator="true">
+                        <f:converter converterId="converterCalendar"/>
+                    </p:calendar>
+                    <p:outputLabel value="Banda" for="selectBanda"/>
+                    <p:selectOneMenu value="#{controleAlbum.objeto.banda}"
+                                     id="selectBanda" filter="true" filterMatchMode="startsWith">
+                        <f:converter converterId="converterBanda"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controleAlbum.daoBanda.listaTodos}"
+                                       var="s" itemLabel="#{s.nome}"/>
+                    </p:selectOneMenu>
+                  
+                    <p:commandButton value="Salvar"
+                                     icon="ui-icon-disk"
+                                     actionListener="#{controleAlbum.salvar()}"
+                                     update="formEdicao :formListagem"/>
+                </p:panelGrid>
+            </div>
+        </h:panelGroup>
+    </h:form>
+</html>
+

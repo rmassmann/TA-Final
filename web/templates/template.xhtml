@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title><ui:insert name="titulo"> </ui:insert></title>
+    </h:head>
+    <h:body>
+        <b:container style="background-color: lightgray">
+            <h:form id="formMenu" style="margin-top: 15px; background-color: lightsteelblue">
+                <b:navBar brand="TA" style="background-color: lightsteelblue; border: 1px solid black" >
+                    <b:navbarLinks>
+                        <b:navLink value="Inicio" outcome="inicio"/>
+                        <b:dropMenu value="Cadastros" rendered="#{controleLogin.utilizadorAutenticado != null}">
+                           <b:navCommandLink value="Banda" ajax="false"
+                                              action="#{controleBanda.listar()}"/>
+                           <b:navCommandLink value="Album" ajax="false"
+                                              action="#{controleAlbum.listar()}"/>
+                        </b:dropMenu>
+                        <b:dropMenu value="Utilizador: #{controleLogin.utilizadorAutenticado != null ? controleLogin.utilizadorAutenticado.nome : ''}" >
+                            <b:navCommandLink value="Efetuar login"
+                             ajax="false" action="#{controleLogin.paginaLogin()}"
+                             rendered="#{controleLogin.utilizadorAutenticado == null}"/>
+                            <b:navCommandLink value="Efetuar logout" ajax="false"
+                             action="#{controleLogin.efetuarLogout()}"
+                             rendered="#{controleLogin.utilizadorAutenticado != null}"/>
+                        </b:dropMenu>
+                    </b:navbarLinks>
+                </b:navBar>
+            </h:form>
+            <ui:insert name="conteudo">
+
+            </ui:insert>
+        </b:container>
+    </h:body>
+</html>
+
